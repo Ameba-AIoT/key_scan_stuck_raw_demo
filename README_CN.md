@@ -5,7 +5,7 @@
 🚀 本示例基于 RTL8721Dx 系列 SoC 的 Key-Scan 外设，演示当出现按键“卡住”时，如何消除该异常状况，使用 Raw API 实现按键卡滞检测与屏蔽。
 
 - 📎 开发板购买链接：[🛒 淘宝](https://item.taobao.com/item.htm?id=904981157046) | [📦 Amazon](https://www.amazon.com/-/zh/dp/B0FB33DT2C/)
-- 📄 [芯片详情](https://aiot.realmcu.com/cn/module/index.html)
+- 📄 [芯片详情](https://aiot.realmcu.com/zh/module/rtl8721dx.html)
 - 📚 [Key-Scan 文档](https://aiot.realmcu.com/cn/latest/rtos/peripherals/key_scan/index.html)
 
 ---
@@ -58,51 +58,31 @@
 
 ## 🚀 快速开始
 
-1️⃣ **选择并配置 SDK 环境**
+1️⃣ **选择SDK**  
+   - 设置`env.sh`（`env.bat`）路径：`source {sdk}/env.sh`  
+   - 将`{sdk}`替换为[ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos)根目录中`env.sh`的绝对路径。如果SDK路径没有改变，此步骤仅需执行一次。
 
-- 设置 `env.sh`（或 `env.bat`）路径：
+   ⚡ **注意**：本示例仅支持 SDK 版本 **≥ v1.2**
 
-  ```bash
-  source {sdk}/env.sh
-  ```
+2️⃣ **编译**  
+   - 在当前工程目录下执行：  
+     ```bash
+     source env.sh
+     ameba.py build -p
+     ```
 
-- 将 `{sdk}` 替换为 [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos) 根目录中 `env.sh` 的绝对路径。  
-- 若 SDK 路径未变，此步骤只需执行一次。
+3️⃣ **烧录固件**
+   >请将命令中的 `COMx` 替换为实际串口号（例如 `COM5`）
+   ```bash
+   ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
+   ```
+   ⚡ **Note**: 若直接使用项目目录中已提供的预编译 bin 文件，可使用如下命令（注意相对路径）：
+   ```bash
+   ameba.py flash --p COMx --image ../km4_boot_all.bin 0x08000000 0x8014000 --image ../km0_km4_app.bin 0x08014000 0x8200000
+   ```
 
-⚡ **注意**：本示例仅支持 SDK 版本 **≥ v1.2**
-
----
-
-2️⃣ **编译工程**
-
-在本示例工程目录下执行：
-
-```bash
-source env.sh
-ameba.py build -p
-```
-
----
-
-3️⃣ **烧录到开发板**
-
-⚡ **注意**：本项目目录中已提供预编译的 bin 文件，可直接烧录：
-
-```bash
-ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
-```
-
-> 如需使用上一级目录的 bin 文件，可根据实际路径进行修改后再烧录。  
-> 将 `COMx` 替换为实际串口号，例如 `COM5`。
-
----
-
-4️⃣ **打开串口监视器**
-
-```bash
-ameba.py monitor --port COMx --b 1500000
-```
-
+4️⃣ **打开串口监视**  
+   - `ameba.py monitor --port COMx --b 1500000`
 ---
 
 5️⃣ **按键测试步骤**

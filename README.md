@@ -6,7 +6,7 @@
 It demonstrates how to detect and handle “stuck keys” using the Raw API when a key is kept pressed abnormally.
 
 - 📎 EVB Purchase Links: [🛒 Taobao](https://item.taobao.com/item.htm?id=904981157046) | [📦 Amazon](https://www.amazon.com/-/zh/dp/B0FB33DT2C/)
-- 📄 [Chip Information](https://aiot.realmcu.com/cn/module/index.html)
+- 📄 [Chip Information](https://aiot.realmcu.com/zh/module/rtl8721dx.html)
 - 📚 [Key-Scan Documentation](https://aiot.realmcu.com/cn/latest/rtos/peripherals/key_scan/index.html)
 
 ---
@@ -59,51 +59,32 @@ It demonstrates how to detect and handle “stuck keys” using the Raw API when
 
 ## 🚀 Quick Start
 
-1️⃣ **Set Up SDK Environment**
+1️⃣ **Select SDK**  
+   - Set the path for `env.sh` (`env.bat`): `source {sdk}/env.sh`  
+   - Replace `{sdk}` with the absolute path to `env.sh` in the root directory of the [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos). This step only needs to be performed once if the SDK path remains unchanged.
 
-- Configure `env.sh` (or `env.bat`) path:
+2️⃣ **Build**  
+   - Execute the following in the demo example directory:  
+     ```bash
+     source env.sh
+     ameba.py build -p
+     ```
 
-  ```bash
-  source {sdk}/env.sh
-  ```
-
-- Replace `{sdk}` with the absolute path to `env.sh` in the root directory of the [ameba-rtos SDK](https://github.com/Ameba-AIoT/ameba-rtos).  
-- If the SDK path does not change, this step is only needed once.
-
-⚡ **Note**: This example only supports SDK version **≥ v1.2**
-
----
-
-2️⃣ **Build the Project**
-
-In this demo project directory, run:
-
-```bash
-source env.sh
-ameba.py build -p
-```
-
----
-
-3️⃣ **Flash to the Board**
-
-⚡ **Note**: Prebuilt bin files are already provided in this project directory and can be flashed directly:
+3️⃣ **Burning the Firmware**  
+   > Replace `COMx` with your actual serial port (for example, `COM5`).
 
 ```bash
 ameba.py flash --p COMx --image km4_boot_all.bin 0x08000000 0x8014000 --image km0_km4_app.bin 0x08014000 0x8200000
 ```
 
-> If you want to use bin files from the upper directory, adjust the paths accordingly before flashing.  
-> Replace `COMx` with your actual serial port, e.g. `COM5`.
-
----
-
-4️⃣ **Open Serial Monitor**
+ ⚡ **Note**: If you want to use the **prebuilt binaries** provided in the project directory (parent folder), run:
 
 ```bash
-ameba.py monitor --port COMx --b 1500000
+ameba.py flash --p COMx --image ../km4_boot_all.bin 0x08000000 0x8014000 --image ../km0_km4_app.bin 0x08014000 0x8200000
 ```
 
+4️⃣ **Monitor**  
+   - `ameba.py monitor --port COMx --b 1500000`
 ---
 
 5️⃣ **Key Test Procedure**
